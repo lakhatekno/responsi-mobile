@@ -57,6 +57,15 @@ class MainPage extends StatelessWidget {
                   child: Text("Maps"),
                 ),
               ),
+              SizedBox(height: 32,),
+              const Text(
+                  "Muhammad Islakha - 123210096",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF2B3499)
+                  )
+              )
             ],
           ),
         )
