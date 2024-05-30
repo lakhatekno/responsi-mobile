@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:responsi_mobile/data/valoData.dart';
 import 'package:responsi_mobile/model/mapsModel.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MapsPage extends StatefulWidget {
   const MapsPage({super.key});
@@ -10,6 +11,13 @@ class MapsPage extends StatefulWidget {
 }
 
 class _MapsPageState extends State<MapsPage> {
+  Future<void> _launchedUrl(String url) async {
+    final Uri _url = Uri.parse(url);
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +47,7 @@ class _MapsPageState extends State<MapsPage> {
                   height: MediaQuery.of(context).size.height,
                   child: _buildMapsList(mapsList),
                 ),
-              ),
+              )
             );
           }
           return _buildLoadingSection();
@@ -58,7 +66,8 @@ class _MapsPageState extends State<MapsPage> {
   }
 
   Widget _buildMapsList(MapsModel results) {
-    return ListView.builder(
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
       itemCount: results.data!.length,
       itemBuilder: (BuildContext context, int index) {
         return _buildItemMaps(results.data![index]);
@@ -67,24 +76,43 @@ class _MapsPageState extends State<MapsPage> {
   }
 
   Widget _buildItemMaps(Data data) {
-    return Card(
-        clipBehavior: Clip.hardEdge,
-        child: Container(
-          height: 100,
-          child: Row(
-            children: [
-              Container(
-                width: 100,
-                child: Image.network(
-                  data.displayIcon.toString(),
-                  fit: BoxFit.cover,
+    return InkWell(
+      onTap: () {_launchedUrl(data.displayIcon!);},
+      child: Card(
+          clipBehavior: Clip.hardEdge,
+          child: Container(
+            height: 400,
+            child: Column(
+              children: [
+                Container(
+                  width: 400,
+                  child: Image.network(
+                    data.splash.toString(),
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
-              SizedBox(width: 25),
-              Text(data.displayName.toString()),
-            ],
-          ),
-        )
+                const SizedBox(height: 25),
+                Text(
+                  data.displayName.toString(),
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w900,
+                    color: Color(0xFF2B3499),
+                  ),
+                ),
+                SizedBox(height: 4,),
+                Text(
+                  data.coordinates.toString(),
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                  ),
+                  textAlign: TextAlign.center,
+                )
+              ],
+            ),
+          )
+      ),
     );
   }
 }

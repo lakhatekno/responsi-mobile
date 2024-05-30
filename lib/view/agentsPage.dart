@@ -79,7 +79,6 @@ class _AgentPageState extends State<AgentPage> {
   Widget _buildItemAgents(Data data) {
     return InkWell(
       onTap: () {
-
         Navigator.push(
           context,
             MaterialPageRoute(builder: (context) {
@@ -89,7 +88,7 @@ class _AgentPageState extends State<AgentPage> {
       },
       child: Card(
           clipBehavior: Clip.hardEdge,
-          child: Container(
+          child: SizedBox(
             height: 100,
             child: Row(
               children: [

@@ -9,8 +9,8 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.lightBlueAccent,
-          title: Text(
+          backgroundColor: const Color(0xFF2B3499),
+          title: const Text(
             "Main Page",
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -38,7 +38,7 @@ class MainPage extends StatelessWidget {
                         })
                     );
                   },
-                  child: Text("Agents"),
+                  child: const Text("Agents", style: TextStyle(color: Color(0xFF2B3499), fontWeight: FontWeight.w700),),
                 ),
               ),
               SizedBox(height: 16,),
@@ -54,10 +54,10 @@ class MainPage extends StatelessWidget {
                         })
                     );
                   },
-                  child: Text("Maps"),
+                  child: Text("Maps", style: TextStyle(color: Color(0xFF2B3499), fontWeight: FontWeight.w700),),
                 ),
               ),
-              SizedBox(height: 32,),
+              const SizedBox(height: 32,),
               const Text(
                   "Muhammad Islakha - 123210096",
                   textAlign: TextAlign.center,
